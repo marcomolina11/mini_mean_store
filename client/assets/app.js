@@ -6,6 +6,10 @@ app.config(function($routeProvider){
 		templateUrl: 'partials/users.html',
 		controller: 'usersController'
 	})
+	.when('/products', {
+		templateUrl: 'partials/products.html',
+		controller: 'productsController'
+	})
 	.otherwise({
 		redirectTo: '/'
 	})

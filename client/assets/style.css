@@ -1,0 +1,22 @@
+.productDiv{
+	display: inline-block;
+	vertical-align: top;
+	height: 120px;
+	width: 120px;
+	background-color: lightgrey;
+	border: 1px solid black;
+	text-align: center;
+	margin: 5px;
+}
+#leftPanel{
+	display: inline-block;
+	vertical-align: top;
+	margin: 5px;
+	padding: 5px;
+}
+#rightPanel{
+	display: inline-block;
+	vertical-align: top;
+	margin: 5px;
+	width: 700px;
+}

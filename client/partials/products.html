@@ -1,0 +1,22 @@
+<h1>All Products</h1>
+<div id='leftPanel'>
+	<input type="text" ng-model='x' placeholder="filter...">
+	<form ng-submit='create()'>
+		<h3>Add a new product</h3>
+		<p>Name:</p>
+		<p><input type="text" ng-model='newProduct.name'></p>
+		<p>Image (url):</p>
+		<p><input type="text" ng-model='newProduct.url' placeholder="http://"></p>
+		<p>Description:</p>
+		<p><textarea ng-model='newProduct.description'></textarea></p>
+		<p>Initial Quantity:</p>
+		<p><input type="text" ng-model='newProduct.quantity'></p>
+		<input type="submit" value="Create">
+	</form>
+</div>
+<div id='rightPanel'>
+	<div class='productDiv' ng-repeat='product in products | filter: x'>
+		<p>{{ product.name }}</p>
+		<p>({{ product.quantity }} left)</p>
+	</div>
+</div>
