@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Product = mongoose.model('Product');
+var Order = mongoose.model('Order');
 
 function ProductsController(){
 	var _this = this;
@@ -30,14 +31,17 @@ function ProductsController(){
 		res.json({placeholder:'update'})
 	}
 	this.delete = function(req, res){
-		Product.remove({ _id: req.params.id }, function(err, result){
-			if (err){
-				console.log(err);
-				res.json(err);
-			}
-			else{
-				_this.index(req, res);
-			}
+		Order.removeOrdersByProductId(req.params.id, function(err){
+			if (err){ console.log(err); }
+			Product.remove({ _id: req.params.id }, function(err, result){
+				if (err){
+					console.log(err);
+					res.json(err);
+				}
+				else{
+					_this.index(req, res);
+				}
+			})
 		})
 	}
 

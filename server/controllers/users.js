@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
+var Order = mongoose.model('Order');
 
 function UsersController(){
 	var _this = this;
@@ -30,15 +31,27 @@ function UsersController(){
 		res.json({placeholder:'update'})
 	}
 	this.delete = function(req, res){
-		User.remove({ _id: req.params.id }, function(err, result){
-			if (err){
-				console.log(err);
-				res.json(err);
-			}
-			else{
-				_this.index(req, res);
-			}
+		Order.removeOrdersByUserId(req.params.id, function(err){
+			if (err) { return res.json(err); }
+			User.remove({ _id: req.params.id }, function(err, result){
+				if (err){
+					console.log(err);
+					res.json(err);
+				}
+				else{
+					_this.index(req, res);
+				}
+			})
 		})
+	}
+	this.recent = function(req, res){
+		User.find({})
+			.sort('-created_at')
+			.limit(3)
+			.exec(function(err, results){
+				if (err){console.log(err);}
+				res.json(results);
+			})
 	}
 
 }
