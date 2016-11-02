@@ -22,7 +22,7 @@ var OrderSchema = new Schema({
 	}
 });
 
-OrderSchema.statics.removeOrdersByUserId = function(useId, callback) {
+OrderSchema.statics.removeOrdersByUserId = function(userId, callback) {
   // Still need to add pending quantities back to orders...
   this.remove({ _user: userId}, function(err){
     return callback(err);

@@ -39,4 +39,11 @@ ProductSchema.methods.decrementQuantity = function(quantity, callback) {
   });
 };
 
+ProductSchema.methods.incrementQuantity = function(quantity, callback){
+	this.quantity += quantity;
+	this.save(function(err){
+		callback(err);
+	});
+};
+
 var Product = mongoose.model('Product', ProductSchema);

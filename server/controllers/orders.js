@@ -64,14 +64,34 @@ function OrdersController(){
 		res.json({placeholder:'update'})
 	}
 	this.delete = function(req, res){
-  		Order.remove({ _id: req.params.id}, function(err){
-  			if (err){
-  				res.json(err);
-  			}
-  			else {
-  				res.json(true)
-  			}
-  		})
+		Order.findById(req.params.id, function(err, order){
+			if (err){ 
+				return console.log(err); 
+			}
+			else{
+				var quantity = order.quantity;
+				var _product = order._product;
+				Product.findById(_product, function(err, product){
+					if (err){ 
+						return console.log(err);
+					}
+					else{
+						product.incrementQuantity(quantity, function(err){
+							if (err){ return res.json(err); }
+							Order.remove({ _id: req.params.id}, function(err){
+					  			if (err){
+					  				return res.json(err);
+					  			}
+					  			else {
+					  				return res.json(true);
+					  			}
+  							})
+						})
+					}
+				})
+			}
+
+		})
 	}
 	this.recent = function(req, res){
 		Order.find({})
